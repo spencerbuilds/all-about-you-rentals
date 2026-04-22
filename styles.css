@@ -97,12 +97,13 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   box-shadow: 0 8px 28px rgba(176,112,104,.45);
 }
 .btn--ghost {
-  background: transparent;
+  background: rgba(255,255,255,.08);
   color: var(--white);
-  border: 1.5px solid rgba(255,255,255,.55);
+  border: 1.5px solid rgba(255,255,255,.85);
+  text-shadow: 0 1px 4px rgba(0,0,0,.4);
 }
 .btn--ghost:hover {
-  background: rgba(255,255,255,.12);
+  background: rgba(255,255,255,.18);
   border-color: var(--white);
 }
 .btn--outline {
