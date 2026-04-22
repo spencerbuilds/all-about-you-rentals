@@ -1040,12 +1040,12 @@ input::placeholder, textarea::placeholder { color: #bbb; }
 .value-card__icon { font-size: 2rem; margin-bottom: 1rem; }
 .value-card h3 {
   font-family: var(--font-serif);
-  font-size: 1.2rem;
-  font-weight: 400;
+  font-size: 1.25rem;
+  font-weight: 600;
   color: var(--charcoal);
   margin-bottom: .6rem;
 }
-.value-card p { font-size: .88rem; color: var(--text-light); line-height: 1.7; }
+.value-card p { font-size: .9375rem; font-weight: 400; color: var(--text-light); line-height: 1.7; }
 
 /* =========================================
    REVIEWS PAGE GRID
