@@ -125,17 +125,18 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 100;
+  background: rgba(250,247,242,.97);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-sm);
   transition: background var(--transition), box-shadow var(--transition);
 }
 .nav.scrolled {
-  background: rgba(250,247,242,.96);
-  backdrop-filter: blur(12px);
-  box-shadow: var(--shadow-sm);
+  background: rgba(250,247,242,.99);
+  box-shadow: var(--shadow-md);
 }
 /* On inner pages, always show solid nav */
 .nav.nav--solid {
-  background: rgba(250,247,242,.98);
-  backdrop-filter: blur(12px);
+  background: rgba(250,247,242,.99);
   box-shadow: var(--shadow-sm);
 }
 .nav__inner {
