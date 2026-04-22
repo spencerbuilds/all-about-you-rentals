@@ -321,15 +321,17 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   color: var(--white);
   line-height: 1.1;
   margin-bottom: 1.5rem;
+  text-shadow: 0 2px 16px rgba(0,0,0,.45);
 }
 .hero__title em { font-style: italic; color: var(--gold-light); }
 .hero__subtitle {
   font-size: clamp(1rem, 2vw, 1.15rem);
   font-weight: 400;
-  color: rgba(255,255,255,.88);
+  color: rgba(255,255,255,.92);
   max-width: 560px;
   margin: 0 auto 2.5rem;
   line-height: 1.85;
+  text-shadow: 0 1px 8px rgba(0,0,0,.4);
 }
 .hero__actions {
   display: flex;
