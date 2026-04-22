@@ -710,12 +710,13 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 .contact__list strong {
   display: block;
   font-size: .78rem;
+  font-weight: 700;
   letter-spacing: .1em;
   text-transform: uppercase;
   color: var(--rose);
   margin-bottom: .2rem;
 }
-.contact__list p { margin: 0; font-size: .95rem; }
+.contact__list p { margin: 0; font-size: 1rem; font-weight: 400; }
 .contact__list a { color: var(--text); transition: color var(--transition); }
 .contact__list a:hover { color: var(--rose); }
 .contact__note {
