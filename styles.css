@@ -696,7 +696,8 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 .contact__info p {
   color: var(--text-light);
   margin-bottom: 2rem;
-  font-size: .975rem;
+  font-size: 1.0625rem;
+  font-weight: 400;
 }
 .contact__list {
   display: flex;
