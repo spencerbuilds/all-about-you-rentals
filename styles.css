@@ -738,8 +738,8 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 .contact__form h3 {
   font-family: var(--font-serif);
-  font-size: 1.6rem;
-  font-weight: 400;
+  font-size: 1.7rem;
+  font-weight: 600;
   color: var(--charcoal);
   margin-bottom: 2rem;
 }
