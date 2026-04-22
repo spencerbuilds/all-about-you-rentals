@@ -821,8 +821,9 @@ input::placeholder, textarea::placeholder { color: #bbb; }
 }
 .footer__links { display: flex; gap: 2rem; flex-wrap: wrap; }
 .footer__links a {
-  font-size: .85rem;
-  color: rgba(255,255,255,.5);
+  font-size: .875rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.55);
   transition: color var(--transition);
 }
 .footer__links a:hover { color: var(--gold-light); }
