@@ -423,12 +423,14 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 .about__text p {
   color: var(--text-light);
   margin-bottom: 1.25rem;
-  font-size: .975rem;
+  font-size: 1.0625rem;
+  font-weight: 400;
 }
 .about__quote {
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: 1.3rem !important;
+  font-size: 1.35rem !important;
+  font-weight: 600 !important;
   color: var(--rose) !important;
   border-left: 3px solid var(--blush);
   padding-left: 1.25rem;
