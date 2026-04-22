@@ -547,7 +547,8 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 .rentals__note {
   text-align: center;
-  font-size: .82rem;
+  font-size: .875rem;
+  font-weight: 500;
   color: var(--text-light);
   letter-spacing: .04em;
   padding: 1.25rem 2rem;
