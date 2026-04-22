@@ -175,19 +175,19 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 .nav__links a.active { color: var(--rose); }
 
 .nav__cta {
-  background: rgba(255,255,255,.18) !important;
-  border: 1.5px solid rgba(255,255,255,.45);
+  background: var(--rose) !important;
+  border: 1.5px solid var(--rose);
   border-radius: 50px;
   padding: .5rem 1.4rem;
   color: var(--white) !important;
   font-size: .8rem !important;
-  font-weight: 500 !important;
+  font-weight: 600 !important;
   letter-spacing: .07em;
   transition: var(--transition) !important;
 }
 .nav__cta:hover {
-  background: rgba(255,255,255,.28) !important;
-  border-color: var(--white) !important;
+  background: #9A5F58 !important;
+  border-color: #9A5F58 !important;
 }
 .nav.scrolled .nav__cta,
 .nav.nav--solid .nav__cta {
