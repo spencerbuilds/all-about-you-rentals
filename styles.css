@@ -751,14 +751,14 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 label {
   font-size: .78rem;
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: .07em;
   text-transform: uppercase;
   color: var(--text-light);
 }
 input, textarea {
   font-family: var(--font-sans);
-  font-size: .9rem;
+  font-size: .975rem;
   color: var(--charcoal);
   background: var(--ivory);
   border: 1.5px solid var(--ivory-dark);
