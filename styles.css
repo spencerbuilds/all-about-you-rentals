@@ -291,7 +291,12 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 .hero__overlay {
   position: absolute;
   inset: 0;
-  background: rgba(20,12,10,.52);
+  background: linear-gradient(
+    to bottom,
+    rgba(10,7,5,.68) 0%,
+    rgba(10,7,5,.52) 40%,
+    rgba(10,7,5,.62) 100%
+  );
 }
 .hero__content {
   position: relative;
