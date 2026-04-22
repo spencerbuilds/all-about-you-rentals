@@ -1007,14 +1007,15 @@ input::placeholder, textarea::placeholder { color: #bbb; }
 .cta-banner__content h2 {
   font-family: var(--font-serif);
   font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 300;
+  font-weight: 600;
   color: var(--white);
   margin-bottom: 1rem;
 }
 .cta-banner__content p {
-  color: rgba(255,255,255,.75);
+  color: rgba(255,255,255,.85);
   margin-bottom: 2rem;
-  font-size: 1rem;
+  font-size: 1.0625rem;
+  font-weight: 400;
 }
 
 /* =========================================
