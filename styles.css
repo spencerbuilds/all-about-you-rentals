@@ -250,7 +250,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 .page-hero__eyebrow {
   font-size: .75rem;
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: .22em;
   text-transform: uppercase;
   color: var(--gold-light);
@@ -259,15 +259,16 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 .page-hero__title {
   font-family: var(--font-serif);
   font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 300;
+  font-weight: 600;
   color: var(--white);
   line-height: 1.15;
 }
 .page-hero__title em { font-style: italic; color: var(--gold-light); }
 .page-hero__sub {
   margin-top: 1rem;
-  font-size: 1rem;
-  color: rgba(255,255,255,.7);
+  font-size: 1.0625rem;
+  font-weight: 400;
+  color: rgba(255,255,255,.82);
   max-width: 480px;
   margin-left: auto;
   margin-right: auto;
