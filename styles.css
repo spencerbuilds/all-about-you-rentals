@@ -970,13 +970,15 @@ input::placeholder, textarea::placeholder { color: #bbb; }
 .home-review-card p {
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
+  font-weight: 500;
   color: var(--text);
-  line-height: 1.75;
+  line-height: 1.8;
   margin: .75rem 0 1rem;
 }
 .home-review-card cite {
-  font-size: .8rem;
+  font-size: .82rem;
+  font-weight: 600;
   letter-spacing: .07em;
   color: var(--rose);
 }
