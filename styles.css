@@ -811,8 +811,8 @@ input::placeholder, textarea::placeholder { color: #bbb; }
 .footer__logo {
   height: 48px;
   width: auto;
-  filter: brightness(0) invert(1);
-  opacity: .85;
+  border-radius: 6px;
+  opacity: .9;
 }
 .footer__brand p {
   font-size: .78rem;
