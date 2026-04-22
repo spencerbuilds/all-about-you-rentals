@@ -150,17 +150,22 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   display: block;
   height: 52px;
   flex-shrink: 0;
+  background: rgba(255,255,255,.92);
+  border-radius: 8px;
+  padding: 4px 10px;
+  transition: background var(--transition), box-shadow var(--transition);
+}
+.nav.scrolled .nav__logo,
+.nav.nav--solid .nav__logo {
+  background: transparent;
+  padding: 0;
 }
 .nav__logo-img {
   height: 100%;
   width: auto;
   object-fit: contain;
   object-position: left center;
-  filter: brightness(0) invert(1);
-  transition: filter var(--transition);
 }
-.nav.scrolled .nav__logo-img,
-.nav.nav--solid .nav__logo-img { filter: none; }
 
 .nav__links {
   display: flex;
