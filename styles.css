@@ -632,15 +632,17 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 .testimonial-card p {
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: 1.05rem;
-  color: rgba(255,255,255,.88);
-  line-height: 1.75;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.92);
+  line-height: 1.8;
   margin-bottom: 1.25rem;
 }
 .testimonial-card cite {
   font-family: var(--font-sans);
   font-style: normal;
-  font-size: .8rem;
+  font-size: .82rem;
+  font-weight: 500;
   letter-spacing: .08em;
   color: var(--gold-light);
 }
