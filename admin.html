@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — All About You Rentals</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --rose:#B07068; --gold:#C9A96E; --charcoal:#2C2826;
+      --ivory:#FAF7F2; --ivory-dark:#F2EDE4; --text:#4A3F3A;
+      --white:#fff; --green:#4A7C59; --red:#C0392B; --orange:#D4813A;
+      --font-serif:'Cormorant Garamond',Georgia,serif;
+      --font-sans:'Jost',system-ui,sans-serif;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--font-sans);background:var(--ivory-dark);color:var(--text);font-size:.9375rem}
+    a{color:inherit;text-decoration:none}
+    button{cursor:pointer;font-family:inherit}
+
+    /* LOGIN */
+    .login-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem}
+    .login-card{background:var(--white);border-radius:16px;padding:3rem;max-width:380px;width:100%;box-shadow:0 8px 40px rgba(44,40,38,.12);text-align:center}
+    .login-card h1{font-family:var(--font-serif);font-size:2rem;color:var(--charcoal);margin-bottom:.5rem}
+    .login-card p{color:#888;font-size:.875rem;margin-bottom:2rem}
+    .login-card input{width:100%;border:1.5px solid var(--ivory-dark);border-radius:8px;padding:.75rem 1rem;font-size:.9375rem;font-family:inherit;outline:none;transition:.2s}
+    .login-card input:focus{border-color:var(--rose)}
+    .login-card .btn{margin-top:1rem;width:100%;background:var(--rose);color:#fff;border:none;border-radius:50px;padding:.85rem;font-size:.9rem;font-weight:600;letter-spacing:.06em;transition:.2s}
+    .login-card .btn:hover{background:#9A5F58}
+    .login-error{color:var(--red);font-size:.8rem;margin-top:.75rem}
+
+    /* LAYOUT */
+    .admin-wrap{display:none;min-height:100vh}
+    .admin-wrap.visible{display:flex}
+    .sidebar{width:220px;background:var(--charcoal);color:#fff;flex-shrink:0;display:flex;flex-direction:column}
+    .sidebar__logo{padding:1.5rem;border-bottom:1px solid rgba(255,255,255,.08)}
+    .sidebar__logo img{height:40px;width:auto;border-radius:4px}
+    .sidebar__logo p{font-size:.7rem;color:rgba(255,255,255,.4);margin-top:.35rem;letter-spacing:.1em;text-transform:uppercase}
+    .sidebar nav{padding:1rem 0;flex:1}
+    .sidebar nav a{display:flex;align-items:center;gap:.75rem;padding:.75rem 1.5rem;font-size:.875rem;color:rgba(255,255,255,.65);transition:.2s}
+    .sidebar nav a:hover,.sidebar nav a.active{background:rgba(255,255,255,.06);color:#fff}
+    .sidebar nav a.active{border-left:3px solid var(--rose)}
+    .sidebar__logout{padding:1.5rem;border-top:1px solid rgba(255,255,255,.08)}
+    .sidebar__logout button{background:transparent;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.6);border-radius:50px;padding:.5rem 1.25rem;font-size:.8rem;width:100%;transition:.2s}
+    .sidebar__logout button:hover{border-color:var(--rose);color:var(--rose)}
+
+    /* MAIN */
+    .admin-main{flex:1;overflow:auto;padding:2rem}
+    .page{display:none}.page.active{display:block}
+    .page-title{font-family:var(--font-serif);font-size:2rem;color:var(--charcoal);margin-bottom:1.5rem}
+
+    /* STAT CARDS */
+    .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:2rem}
+    .stat-card{background:var(--white);border-radius:12px;padding:1.25rem 1.5rem;box-shadow:0 2px 12px rgba(44,40,38,.07)}
+    .stat-card__num{font-family:var(--font-serif);font-size:2.5rem;font-weight:600;color:var(--charcoal);line-height:1}
+    .stat-card__label{font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:#999;margin-top:.35rem}
+
+    /* TABLE */
+    .table-wrap{background:var(--white);border-radius:12px;box-shadow:0 2px 12px rgba(44,40,38,.07);overflow:hidden;margin-bottom:2rem}
+    .table-header{padding:1.25rem 1.5rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--ivory-dark)}
+    .table-header h3{font-size:1rem;font-weight:600}
+    table{width:100%;border-collapse:collapse;font-size:.875rem}
+    th{background:var(--ivory);text-align:left;padding:.75rem 1rem;font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:#888;font-weight:600}
+    td{padding:.85rem 1rem;border-bottom:1px solid var(--ivory-dark)}
+    tr:last-child td{border-bottom:none}
+    tr:hover td{background:var(--ivory)}
+
+    /* BADGES */
+    .badge{display:inline-flex;align-items:center;padding:.2rem .7rem;border-radius:50px;font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+    .badge--pending{background:#FEF3C7;color:#92400E}
+    .badge--confirmed{background:#D1FAE5;color:#065F46}
+    .badge--denied{background:#FEE2E2;color:#991B1B}
+    .badge--completed,.badge--returned{background:#E0E7FF;color:#3730A3}
+    .badge--picked_up{background:#DBEAFE;color:#1E40AF}
+
+    /* ACTION BUTTONS */
+    .action-btns{display:flex;gap:.5rem;flex-wrap:wrap}
+    .btn-sm{border:none;border-radius:50px;padding:.3rem .9rem;font-size:.75rem;font-weight:600;transition:.2s;cursor:pointer}
+    .btn-confirm{background:#D1FAE5;color:#065F46}.btn-confirm:hover{background:#A7F3D0}
+    .btn-deny{background:#FEE2E2;color:#991B1B}.btn-deny:hover{background:#FECACA}
+    .btn-complete{background:#E0E7FF;color:#3730A3}.btn-complete:hover{background:#C7D2FE}
+    .btn-delete{background:var(--ivory-dark);color:#999}.btn-delete:hover{background:#fee;color:var(--red)}
+
+    /* DETAIL EXPAND */
+    .booking-detail{display:none;background:var(--ivory);padding:1rem 1.5rem;font-size:.85rem}
+    .booking-detail.open{display:block}
+    .booking-detail table{font-size:.8rem}
+    .booking-detail table th{background:transparent;padding:.4rem .5rem}
+    .booking-detail table td{padding:.4rem .5rem}
+
+    /* INVENTORY TABLE */
+    .inv-search{width:100%;max-width:320px;border:1.5px solid var(--ivory-dark);border-radius:8px;padding:.6rem 1rem;font-family:inherit;font-size:.875rem;outline:none;margin-bottom:1rem}
+    .inv-search:focus{border-color:var(--rose)}
+    .qty-input{width:70px;border:1.5px solid var(--ivory-dark);border-radius:6px;padding:.35rem .5rem;font-size:.85rem;text-align:center;font-family:inherit}
+    .qty-input:focus{outline:none;border-color:var(--rose)}
+    .save-qty{background:var(--rose);color:#fff;border:none;border-radius:50px;padding:.3rem .9rem;font-size:.75rem;font-weight:600;cursor:pointer;transition:.2s}
+    .save-qty:hover{background:#9A5F58}
+    .toast{position:fixed;bottom:2rem;right:2rem;background:var(--charcoal);color:#fff;padding:.75rem 1.5rem;border-radius:50px;font-size:.875rem;opacity:0;transform:translateY(10px);transition:.3s;pointer-events:none;z-index:999}
+    .toast.show{opacity:1;transform:translateY(0)}
+
+    /* LOADING */
+    .loading{text-align:center;padding:3rem;color:#999;font-size:.9rem}
+    .spinner{width:28px;height:28px;border:3px solid var(--ivory-dark);border-top-color:var(--rose);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 1rem}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    @media(max-width:768px){
+      .sidebar{width:0;overflow:hidden}
+      .admin-main{padding:1rem}
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div class="login-wrap" id="loginScreen">
+  <div class="login-card">
+    <h1>Admin Panel</h1>
+    <p>All About You Rentals</p>
+    <input type="password" id="passwordInput" placeholder="Enter password" autocomplete="current-password" />
+    <button class="btn" onclick="login()">Sign In</button>
+    <p class="login-error" id="loginError"></p>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="admin-wrap" id="adminWrap">
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar__logo">
+      <img src="logo.jpg" alt="All About You Rentals" />
+      <p>Admin Dashboard</p>
+    </div>
+    <nav>
+      <a href="#" class="active" data-page="dashboard" onclick="showPage('dashboard',this)">
+        📊 Dashboard
+      </a>
+      <a href="#" data-page="bookings" onclick="showPage('bookings',this)">
+        📋 Bookings
+      </a>
+      <a href="#" data-page="inventory" onclick="showPage('inventory',this)">
+        📦 Inventory
+      </a>
+      <a href="index.html" target="_blank">
+        🌐 View Site
+      </a>
+    </nav>
+    <div class="sidebar__logout">
+      <button onclick="logout()">Sign Out</button>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="admin-main">
+
+    <!-- DASHBOARD PAGE -->
+    <div class="page active" id="page-dashboard">
+      <h1 class="page-title">Dashboard</h1>
+      <div class="stats-row" id="statsRow">
+        <div class="loading"><div class="spinner"></div>Loading…</div>
+      </div>
+      <div class="table-wrap">
+        <div class="table-header">
+          <h3>Recent Bookings</h3>
+          <a href="#" onclick="showPage('bookings',document.querySelector('[data-page=bookings]'))" style="color:var(--rose);font-size:.85rem">View all →</a>
+        </div>
+        <div id="recentBookings"><div class="loading"><div class="spinner"></div></div></div>
+      </div>
+    </div>
+
+    <!-- BOOKINGS PAGE -->
+    <div class="page" id="page-bookings">
+      <h1 class="page-title">All Bookings</h1>
+      <div class="table-wrap">
+        <div class="table-header">
+          <h3>Booking Requests</h3>
+          <select id="statusFilter" onchange="filterBookings()" style="border:1.5px solid var(--ivory-dark);border-radius:8px;padding:.4rem .8rem;font-family:inherit;font-size:.85rem;outline:none">
+            <option value="">All Statuses</option>
+            <option value="pending">Pending</option>
+            <option value="confirmed">Confirmed</option>
+            <option value="denied">Denied</option>
+            <option value="picked_up">Picked Up</option>
+            <option value="returned">Returned</option>
+          </select>
+        </div>
+        <div id="bookingsTable"><div class="loading"><div class="spinner"></div></div></div>
+      </div>
+    </div>
+
+    <!-- INVENTORY PAGE -->
+    <div class="page" id="page-inventory">
+      <h1 class="page-title">Inventory</h1>
+      <input class="inv-search" id="invSearch" placeholder="Search products…" oninput="filterInventory()" />
+      <div class="table-wrap">
+        <div id="inventoryTable"><div class="loading"><div class="spinner"></div></div></div>
+      </div>
+    </div>
+
+  </div><!-- /admin-main -->
+</div><!-- /admin-wrap -->
+
+<div class="toast" id="toast"></div>
+
+<script>
+const API = '';
+let TOKEN = localStorage.getItem('aay_admin_token') || '';
+let allBookings = [];
+let allProducts = [];
+
+// ── AUTH ──────────────────────────────────────────────────────
+async function login() {
+  const pw = document.getElementById('passwordInput').value;
+  const err = document.getElementById('loginError');
+  err.textContent = '';
+  try {
+    const r = await fetch(`${API}/api/admin?action=login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: pw }),
+    });
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.error || 'Invalid password');
+    TOKEN = d.token;
+    localStorage.setItem('aay_admin_token', TOKEN);
+    showAdmin();
+  } catch (e) {
+    err.textContent = e.message;
+  }
+}
+
+function logout() {
+  TOKEN = '';
+  localStorage.removeItem('aay_admin_token');
+  document.getElementById('adminWrap').classList.remove('visible');
+  document.getElementById('loginScreen').style.display = 'flex';
+}
+
+document.getElementById('passwordInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') login();
+});
+
+// Check if already logged in
+if (TOKEN) showAdmin();
+
+function showAdmin() {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('adminWrap').classList.add('visible');
+  loadDashboard();
+}
+
+// ── NAV ───────────────────────────────────────────────────────
+function showPage(name, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.sidebar nav a').forEach(a => a.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  if (el) el.classList.add('active');
+  if (name === 'bookings') loadBookings();
+  if (name === 'inventory') loadInventory();
+  return false;
+}
+
+// ── TOAST ─────────────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ── AUTH HEADER ───────────────────────────────────────────────
+function authHeaders() {
+  return { 'Content-Type': 'application/json', 'Authorization': `Bearer ${TOKEN}` };
+}
+
+// ── DASHBOARD ─────────────────────────────────────────────────
+async function loadDashboard() {
+  try {
+    const [statsRes, bookingsRes] = await Promise.all([
+      fetch(`${API}/api/admin?action=stats`, { headers: authHeaders() }),
+      fetch(`${API}/api/admin?action=bookings`, { headers: authHeaders() }),
+    ]);
+    if (statsRes.status === 401 || bookingsRes.status === 401) { logout(); return; }
+    const stats = await statsRes.json();
+    const bookings = await bookingsRes.json();
+    allBookings = bookings;
+
+    document.getElementById('statsRow').innerHTML = `
+      <div class="stat-card"><div class="stat-card__num">${stats.total||0}</div><div class="stat-card__label">Total Bookings</div></div>
+      <div class="stat-card"><div class="stat-card__num" style="color:var(--orange)">${stats.pending||0}</div><div class="stat-card__label">Pending</div></div>
+      <div class="stat-card"><div class="stat-card__num" style="color:var(--green)">${stats.confirmed||0}</div><div class="stat-card__label">Confirmed</div></div>
+      <div class="stat-card"><div class="stat-card__num" style="color:var(--rose)">$${stats.revenue||'0.00'}</div><div class="stat-card__label">Revenue</div></div>
+    `;
+    renderBookingsTable(bookings.slice(0, 8), 'recentBookings');
+  } catch(e) { console.error(e); }
+}
+
+// ── BOOKINGS ──────────────────────────────────────────────────
+async function loadBookings() {
+  if (allBookings.length) { renderBookingsTable(allBookings, 'bookingsTable'); return; }
+  const r = await fetch(`${API}/api/admin?action=bookings`, { headers: authHeaders() });
+  if (r.status === 401) { logout(); return; }
+  allBookings = await r.json();
+  renderBookingsTable(allBookings, 'bookingsTable');
+}
+
+function filterBookings() {
+  const status = document.getElementById('statusFilter').value;
+  const filtered = status ? allBookings.filter(b => b.status === status) : allBookings;
+  renderBookingsTable(filtered, 'bookingsTable');
+}
+
+function renderBookingsTable(bookings, containerId) {
+  if (!bookings.length) {
+    document.getElementById(containerId).innerHTML = '<p style="padding:2rem;text-align:center;color:#999">No bookings found</p>';
+    return;
+  }
+  document.getElementById(containerId).innerHTML = `
+    <table>
+      <thead><tr>
+        <th>Date</th><th>Customer</th><th>Event Date</th><th>Items</th><th>Subtotal</th><th>Fulfillment</th><th>Status</th><th>Actions</th>
+      </tr></thead>
+      <tbody>
+        ${bookings.map(b => `
+          <tr>
+            <td style="font-size:.8rem;color:#999">${new Date(b.created_at).toLocaleDateString()}</td>
+            <td>
+              <strong>${b.customer_name}</strong><br>
+              <span style="font-size:.8rem;color:#999">${b.customer_email}</span>
+            </td>
+            <td>${b.event_date}</td>
+            <td>${(b.booking_items||[]).length} items</td>
+            <td>$${(b.subtotal||0).toFixed(2)}</td>
+            <td style="text-transform:capitalize">${b.fulfillment||'pickup'}</td>
+            <td><span class="badge badge--${b.status}">${b.status}</span></td>
+            <td>
+              <div class="action-btns">
+                <button class="btn-sm" onclick="toggleDetail('${b.id}')">Details</button>
+                ${b.status==='pending'?`
+                  <button class="btn-sm btn-confirm" onclick="updateBooking('${b.id}','confirmed')">Confirm</button>
+                  <button class="btn-sm btn-deny" onclick="updateBooking('${b.id}','denied')">Deny</button>
+                `:''}
+                ${b.status==='confirmed'?`
+                  <button class="btn-sm btn-complete" onclick="updateBooking('${b.id}','picked_up')">Picked Up</button>
+                `:''}
+                ${b.status==='picked_up'?`
+                  <button class="btn-sm btn-complete" onclick="updateBooking('${b.id}','returned')">Returned</button>
+                `:''}
+                <button class="btn-sm btn-delete" onclick="deleteBooking('${b.id}')">✕</button>
+              </div>
+            </td>
+          </tr>
+          <tr id="detail-${b.id}">
+            <td colspan="8" style="padding:0">
+              <div class="booking-detail" id="detail-body-${b.id}">
+                <strong>Phone:</strong> ${b.customer_phone||'—'} &nbsp;|&nbsp;
+                <strong>Event Type:</strong> ${b.event_type||'—'} &nbsp;|&nbsp;
+                <strong>Notes:</strong> ${b.notes||'None'}
+                <br><br>
+                <table>
+                  <thead><tr><th>Item</th><th>Qty</th><th>Price</th></tr></thead>
+                  <tbody>
+                    ${(b.booking_items||[]).map(i=>`
+                      <tr><td>${i.product_name}</td><td>${i.qty}</td><td>${i.price}</td></tr>
+                    `).join('')}
+                  </tbody>
+                </table>
+                ${b.admin_notes?`<p style="margin-top:.75rem"><strong>Admin Notes:</strong> ${b.admin_notes}</p>`:''}
+              </div>
+            </td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>`;
+}
+
+function toggleDetail(id) {
+  document.getElementById(`detail-body-${id}`).classList.toggle('open');
+}
+
+async function updateBooking(id, status) {
+  await fetch(`${API}/api/admin?action=booking&id=${id}`, {
+    method: 'PATCH',
+    headers: authHeaders(),
+    body: JSON.stringify({ status }),
+  });
+  allBookings = allBookings.map(b => b.id===id ? {...b,status} : b);
+  showToast(`Booking ${status}`);
+  renderBookingsTable(allBookings, 'bookingsTable');
+  // Also refresh dashboard stats
+  const statsEl = document.getElementById('statsRow');
+  if (statsEl) loadDashboard();
+}
+
+async function deleteBooking(id) {
+  if (!confirm('Delete this booking? This cannot be undone.')) return;
+  await fetch(`${API}/api/admin?action=booking&id=${id}`, { method: 'DELETE', headers: authHeaders() });
+  allBookings = allBookings.filter(b => b.id !== id);
+  showToast('Booking deleted');
+  renderBookingsTable(allBookings, 'bookingsTable');
+}
+
+// ── INVENTORY ─────────────────────────────────────────────────
+async function loadInventory() {
+  if (allProducts.length) { renderInventoryTable(allProducts); return; }
+  const r = await fetch(`${API}/api/inventory`, { headers: authHeaders() });
+  allProducts = await r.json();
+  renderInventoryTable(allProducts);
+}
+
+function filterInventory() {
+  const q = document.getElementById('invSearch').value.toLowerCase();
+  const filtered = q ? allProducts.filter(p =>
+    p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q)
+  ) : allProducts;
+  renderInventoryTable(filtered);
+}
+
+function renderInventoryTable(products) {
+  if (!products.length) {
+    document.getElementById('inventoryTable').innerHTML = '<p style="padding:2rem;text-align:center;color:#999">No products found. <a href="#" onclick="seedInventory()" style="color:var(--rose)">Seed from products.json</a></p>';
+    return;
+  }
+  document.getElementById('inventoryTable').innerHTML = `
+    <table>
+      <thead><tr><th>Photo</th><th>Product</th><th>Category</th><th>Price</th><th>Total Qty</th><th>Action</th></tr></thead>
+      <tbody>
+        ${products.map(p => `
+          <tr>
+            <td><img src="${p.img}" alt="" style="width:48px;height:36px;object-fit:cover;border-radius:4px" onerror="this.style.display='none'"/></td>
+            <td style="max-width:260px;font-size:.85rem">${p.name}</td>
+            <td style="font-size:.8rem;color:#999">${p.category}</td>
+            <td>${p.price}</td>
+            <td>
+              <input class="qty-input" type="number" min="0" value="${p.total_qty}"
+                id="qty-${p.id}" onchange="markDirty('${p.id}')" />
+            </td>
+            <td>
+              <button class="save-qty" id="save-${p.id}" onclick="saveQty('${p.id}')">Save</button>
+            </td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+    <p style="padding:1rem 1.5rem;font-size:.8rem;color:#999">
+      ${products.length} products shown ·
+      <a href="#" onclick="seedInventory()" style="color:var(--rose)">Re-seed from products.json</a>
+    </p>`;
+}
+
+async function saveQty(id) {
+  const qty = parseInt(document.getElementById(`qty-${id}`)?.value || 0);
+  await fetch(`${API}/api/admin?action=product&id=${encodeURIComponent(id)}`, {
+    method: 'PATCH',
+    headers: authHeaders(),
+    body: JSON.stringify({ total_qty: qty, available_qty: qty }),
+  });
+  allProducts = allProducts.map(p => p.id===id ? {...p, total_qty: qty} : p);
+  showToast('Quantity saved');
+}
+
+function markDirty(id) {
+  // Visual cue that save is needed — handled by onchange already
+}
+
+async function seedInventory() {
+  if (!confirm('This will seed the products table from products.json. Continue?')) return;
+  showToast('Seeding products…');
+  const r = await fetch(`${API}/api/inventory?action=seed`, {
+    method: 'POST',
+    headers: authHeaders(),
+  });
+  const d = await r.json();
+  showToast(`Seeded ${d.inserted} products`);
+  allProducts = [];
+  loadInventory();
+}
+</script>
+</body>
+</html>
