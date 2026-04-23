@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Cart — All About You Rentals</title>
+  <meta name="description" content="Review your rental selections and submit a booking request with All About You Rentals in Highland, Utah." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="nav nav--solid" id="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <img class="nav__logo-img" src="logo.jpg" alt="All About You Rentals" />
+      </a>
+      <nav class="nav__links">
+        <a href="about.html">About</a>
+        <a href="rentals.html">Rentals</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="contact.html">Contact</a>
+        <a href="tel:8016691201" class="nav__cta">Call Us</a>
+        <a href="cart.html" class="nav__cart active" id="navCart" aria-label="View cart">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-count-badge cart-count-badge--hidden" id="cartCount">0</span>
+        </a>
+      </nav>
+      <button class="nav__burger" id="navBurger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__mobile" id="navMobile">
+      <a href="about.html">About</a>
+      <a href="rentals.html">Rentals</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="contact.html">Contact</a>
+      <a href="cart.html">View Cart</a>
+      <a href="tel:8016691201">Call (801) 669-1201</a>
+    </div>
+  </header>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <p class="page-hero__eyebrow">Ready to Book</p>
+    <h1 class="page-hero__title">Your <em>Rental Cart</em></h1>
+    <p class="page-hero__sub">Review your items and fill out the booking form to send your request.</p>
+  </section>
+
+  <!-- EMPTY STATE -->
+  <div class="cart-empty-state" id="cartEmpty" style="display:none">
+    <div class="cart-empty-state__inner">
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <h2>Your cart is empty</h2>
+      <p>Browse our full catalog to find the perfect pieces for your event.</p>
+      <a href="rentals.html" class="btn btn--primary">Browse Rentals</a>
+    </div>
+  </div>
+
+  <!-- CART + FORM LAYOUT -->
+  <div class="cart-layout" id="cartLayout">
+    <div class="cart-layout__inner">
+
+      <!-- LEFT: Cart Items -->
+      <section class="cart-items-section" aria-label="Cart items">
+        <div class="cart-items-header">
+          <h2 class="cart-items-title">Your Items</h2>
+          <a href="rentals.html" class="cart-items-continue">+ Add more items</a>
+        </div>
+
+        <!-- Item rows rendered by cart.js -->
+        <div id="cartItems" class="cart-items-list"></div>
+
+        <!-- Subtotal -->
+        <div class="cart-subtotal">
+          <span class="cart-subtotal__label">Estimated Subtotal</span>
+          <span class="cart-subtotal__amount" id="cartSubtotal">$0.00</span>
+        </div>
+        <p class="cart-tax-note">Prices subject to applicable sales tax. Final total confirmed upon booking.</p>
+      </section>
+
+      <!-- RIGHT: Booking Form -->
+      <section class="cart-form-section" aria-label="Booking form">
+        <h2 class="cart-form-title">Booking Request</h2>
+        <p class="cart-form-subtitle">We'll confirm availability within 24 hours and send a final invoice.</p>
+
+        <!-- Success message -->
+        <div class="booking-message booking-message--success" id="bookingSuccess" style="display:none">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <div>
+            <strong>Request submitted!</strong>
+            <p>Thank you! We'll review your request and reach out within 24 hours to confirm availability.</p>
+          </div>
+        </div>
+
+        <!-- Error message -->
+        <div class="booking-message booking-message--error" id="bookingError" style="display:none">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <div>
+            <strong>Something went wrong.</strong>
+            <p>We couldn't submit your request. Please try again or call us at (801) 669-1201.</p>
+          </div>
+        </div>
+
+        <form id="bookingForm" novalidate>
+
+          <!-- Name -->
+          <div class="form__group">
+            <label for="bookingName">Full Name <span aria-hidden="true">*</span></label>
+            <input type="text" id="bookingName" name="name" placeholder="Jane Smith" required autocomplete="name" />
+          </div>
+
+          <!-- Email -->
+          <div class="form__group">
+            <label for="bookingEmail">Email Address <span aria-hidden="true">*</span></label>
+            <input type="email" id="bookingEmail" name="email" placeholder="jane@example.com" required autocomplete="email" />
+          </div>
+
+          <!-- Phone -->
+          <div class="form__group">
+            <label for="bookingPhone">Phone Number <span aria-hidden="true">*</span></label>
+            <input type="tel" id="bookingPhone" name="phone" placeholder="(801) 555-0123" required autocomplete="tel" />
+          </div>
+
+          <!-- Event Date -->
+          <div class="form__group">
+            <label for="bookingDate">Event Date <span aria-hidden="true">*</span></label>
+            <input type="date" id="bookingDate" name="eventDate" required />
+          </div>
+
+          <!-- Event Type -->
+          <div class="form__group">
+            <label for="bookingEventType">Event Type <span aria-hidden="true">*</span></label>
+            <select id="bookingEventType" name="eventType" required class="form__select">
+              <option value="" disabled selected>Select event type…</option>
+              <option value="Wedding">Wedding</option>
+              <option value="Corporate">Corporate</option>
+              <option value="Birthday">Birthday</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <!-- Pickup / Delivery -->
+          <div class="form__group">
+            <label>Fulfillment <span aria-hidden="true">*</span></label>
+            <div class="fulfillment-toggle">
+              <label class="fulfillment-option">
+                <input type="radio" name="fulfillment" id="optPickup" value="Pickup" checked />
+                <span class="fulfillment-option__label">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  Pickup (Highland, UT)
+                </span>
+              </label>
+              <label class="fulfillment-option" id="deliveryOptionLabel">
+                <input type="radio" name="fulfillment" id="optDelivery" value="Delivery" />
+                <span class="fulfillment-option__label">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                  Delivery
+                </span>
+              </label>
+            </div>
+            <p class="delivery-note delivery-note--locked" id="deliveryNote">Delivery available on orders $200+. Add more items to unlock.</p>
+          </div>
+
+          <!-- Special Requests -->
+          <div class="form__group">
+            <label for="bookingRequests">Special Requests <span class="form__optional">(optional)</span></label>
+            <textarea id="bookingRequests" name="specialRequests" rows="4" placeholder="Anything we should know about your event, setup requirements, or special requests…"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn--primary btn--full booking-submit-btn">Submit Booking Request</button>
+
+          <p class="cart-form-disclaimer">
+            By submitting you agree to be contacted by All About You Rentals regarding your rental inquiry.
+            No payment is collected at this stage — we'll confirm availability and send a final invoice.
+          </p>
+
+        </form>
+      </section>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <img src="logo.jpg" alt="All About You Rentals" class="footer__logo" />
+        <p>Wedding &amp; Event Decor · Highland, Utah</p>
+      </div>
+      <nav class="footer__links">
+        <a href="about.html">About</a>
+        <a href="rentals.html">Rentals</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="footer__social">
+        <a href="https://instagram.com/allaboutyourentals" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="https://facebook.com/allaboutyourentals" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+      </div>
+    </div>
+    <p class="footer__copy">© 2026 All About You Rentals. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="cart.js"></script>
+</body>
+</html>
