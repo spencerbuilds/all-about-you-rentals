@@ -43,11 +43,13 @@ async function scrapePage(slug) {
   const html = await res.text();
 
   const products = [];
-  // Match MasonryProduct blocks
-  const blockRe = /<div class="MasonryProduct">([\s\S]*?)<\/div>\s*<\/div>\s*<\/div>/g;
+  // Match each MasonryProduct block (closes with single </div>)
+  const blockRe = /<div class="MasonryProduct">([\s\S]*?)<\/div>/g;
   let block;
   while ((block = blockRe.exec(html)) !== null) {
     const chunk = block[1];
+    // Only process blocks that have rental-description
+    if (!chunk.includes('rental-description')) continue;
     // Image
     const imgMatch = chunk.match(/<img[^>]+src="([^"]+)"/);
     const img = imgMatch ? imgMatch[1] : '';
