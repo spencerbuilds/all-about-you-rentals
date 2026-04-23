@@ -2,6 +2,37 @@
    ALL ABOUT YOU RENTALS — SCRIPTS
    ========================================= */
 
+/* --- CART: Initialize badge count on every page --- */
+(function initCartBadge() {
+  const CART_KEY = 'aay_cart';
+  function getCartCount() {
+    try {
+      const cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+      return cart.reduce((sum, item) => sum + (item.qty || 0), 0);
+    } catch (e) {
+      return 0;
+    }
+  }
+  function updateBadges() {
+    const count = getCartCount();
+    document.querySelectorAll('.cart-count-badge').forEach(el => {
+      el.textContent = count;
+      el.classList.toggle('cart-count-badge--hidden', count === 0);
+    });
+  }
+  // Run on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateBadges);
+  } else {
+    updateBadges();
+  }
+  // Also update when localStorage changes in another tab
+  window.addEventListener('storage', e => {
+    if (e.key === CART_KEY) updateBadges();
+  });
+})();
+
+
 /* --- NAV: Scroll behavior & mobile toggle --- */
 const nav = document.getElementById('nav');
 const navBurger = document.getElementById('navBurger');
