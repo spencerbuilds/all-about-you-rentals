@@ -850,27 +850,36 @@ input::placeholder, textarea::placeholder { color: #bbb; }
   border-bottom: 1px solid rgba(255,255,255,.08);
   margin-bottom: 2rem;
 }
-.footer__brand { display: flex; flex-direction: column; gap: .5rem; }
+.footer__brand { display: flex; flex-direction: column; gap: .5rem; flex-shrink: 0; }
 .footer__logo {
-  height: 48px;
+  height: auto;
   width: auto;
+  max-height: 70px;
+  max-width: 200px;
   border-radius: 6px;
   opacity: .9;
+  object-fit: contain;
 }
 .footer__brand p {
   font-size: .78rem;
   color: rgba(255,255,255,.35);
   letter-spacing: .08em;
 }
-.footer__links { display: flex; gap: 2rem; flex-wrap: wrap; }
+.footer__right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1.25rem;
+}
+.footer__links { display: flex; gap: 2.5rem; flex-wrap: wrap; justify-content: flex-end; }
 .footer__links a {
-  font-size: .875rem;
+  font-size: 1rem;
   font-weight: 500;
-  color: rgba(255,255,255,.55);
+  color: rgba(255,255,255,.65);
   transition: color var(--transition);
 }
 .footer__links a:hover { color: var(--gold-light); }
-.footer__social { display: flex; gap: 1rem; }
+.footer__social { display: flex; gap: 1.25rem; }
 .footer__social a {
   color: rgba(255,255,255,.4);
   transition: color var(--transition);
