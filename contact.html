@@ -9,6 +9,44 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+  <style>
+    .flatpickr-calendar {
+      font-family: 'Jost', system-ui, sans-serif;
+      background: #FAF7F2;
+      border: 1px solid #E8C5BE;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(44,40,38,.12);
+    }
+    .flatpickr-months { padding: .5rem .5rem 0; }
+    .flatpickr-month { color: #2C2826; }
+    .flatpickr-current-month .flatpickr-monthDropdown-months,
+    .flatpickr-current-month input.cur-year {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #2C2826;
+    }
+    .flatpickr-weekday { color: #7A6E68; font-weight: 600; font-size: .72rem; }
+    .flatpickr-day {
+      border-radius: 8px;
+      color: #4A3F3A;
+      font-size: .875rem;
+    }
+    .flatpickr-day:hover, .flatpickr-day:focus { background: #F2EDE4; border-color: #F2EDE4; }
+    .flatpickr-day.today { border-color: #C9A96E; color: #2C2826; }
+    .flatpickr-day.today:hover { background: #F2EDE4; }
+    .flatpickr-day.selected, .flatpickr-day.selected:hover {
+      background: #B07068;
+      border-color: #B07068;
+      color: #fff;
+    }
+    .flatpickr-day.flatpickr-disabled, .flatpickr-day.prevMonthDay, .flatpickr-day.nextMonthDay {
+      color: #C5BFBB;
+    }
+    .flatpickr-prev-month svg, .flatpickr-next-month svg { fill: #B07068; }
+    .flatpickr-prev-month:hover svg, .flatpickr-next-month:hover svg { fill: #9A5F58; }
+  </style>
 </head>
 <body>
 
