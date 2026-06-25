@@ -236,7 +236,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
    PAGE HERO (inner pages)
    ========================================= */
 .page-hero {
-  padding: 10rem 2rem 5rem;
+  padding: 6rem 2rem 3rem;
   background: linear-gradient(160deg, #3a2828 0%, #5c3d38 50%, #7a5048 100%);
   text-align: center;
 }
